@@ -4,6 +4,8 @@ import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import LoginPage from './pages/Login/LoginPage';
 import DashboardPage from './pages/Dashboard/DashboardPage';
+import Layout from './components/layout/Layout';
+
 
 function App() {
 
@@ -15,8 +17,9 @@ function App() {
 
         {/* Protégées */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
-          {/* <Route path="/users" element={<UsersPage />} />
+          <Route element={<Layout />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+            {/* <Route path="/users" element={<UsersPage />} />
         <Route path="/users/create" element={<UserCreatePage />} />
         <Route path="/users/:id/edit" element={<UserEditPage />} />
         <Route path="/articles" element={<ArticlesPage />} />
@@ -25,6 +28,7 @@ function App() {
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/emotions" element={<EmotionsPage />} />
         <Route path="/emotions/:id" element={<EmotionDetailPage />} /> */}
+          </Route>
         </Route>
 
         {/* Fallback */}
