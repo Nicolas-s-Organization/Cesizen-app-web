@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     const login = async (payload: LoginInput) => {
+        console.log("Entrée login");
         const user = await authService.login(payload);
         setUser(user);
     };

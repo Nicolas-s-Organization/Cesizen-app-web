@@ -41,7 +41,7 @@ api.interceptors.response.use(
 
       } catch {
         localStorage.removeItem('accessToken');
-        window.location.href = '/login'; // redirection forcée vers /login -> A voir si on peut modifier ca
+        // window.location.href = '/login'; // redirection forcée vers /login -> A voir si on peut modifier ca
         return Promise.reject(error);
       }
     }

@@ -9,6 +9,7 @@ export const authService = {
             client: 'web',
         });
         localStorage.setItem('accessToken', data.accessToken);
+        // refreshToken cookie → géré automatiquement par le navigateur
         return data.user;
     },
 
