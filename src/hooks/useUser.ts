@@ -30,10 +30,10 @@ export const useUsers = () => {
         return () => clearTimeout(timer);
     }, [filters.search]);
 
-    const fetchUsers = async (f: UserFilters) => {
+    const fetchUsers = async (query: UserFilters) => {
         setLoading(true);
         try {
-            const result = await userService.getAll(f);
+            const result = await userService.getAll(query);
             setUsers(result.data);
             setMeta(result.meta);
         } catch {
@@ -66,5 +66,5 @@ export const useUsers = () => {
         }
     };
 
-    return { users, meta, loading, error, filters, setFilters, updateUser, deleteUser };
+    return { users, meta, loading, error, filters, setFilters, updateUser, deleteUser, fetchUsers  };
 };

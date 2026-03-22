@@ -1,6 +1,7 @@
 import type { PaginatedUsers, UserFilters } from '@/types/user';
 import type { User } from '../types/auth';
 import api from './api'
+import type { createUserInput } from '@/schemas/userSchema';
 
 
 
@@ -18,6 +19,11 @@ export const userService = {
 
     async delete(id: string): Promise<void> {
         await api.delete(`/users/${id}`);
-    }
+    },
+
+    async create(data: createUserInput): Promise<User> {
+     const response = await api.post('/auth/register', data);
+    return response.data;
+}
 
 }
