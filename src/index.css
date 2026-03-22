@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+
+@theme {
+  /* Couleurs principales */
+  --color-primary: #16a34a;        /* Vert principal (boutons, logo) */
+  --color-primary-hover: #15803d;  /* Vert foncé hover */
+  --color-primary-light: #f0fdf4;  /* Vert très clair (fond pages) */
+  --color-primary-text: #15803d;   /* Vert texte titres */
+
+  /* Couleurs secondaires */
+  --color-amber: #d97706;          /* Orange/ambre (Articles) */
+  --color-purple: #9333ea;         /* Violet (Émotions) */
+
+  /* Fond général */
+  --color-bg-page: #f0fdf4;        /* Fond vert très clair */
+  --color-bg-card: #ffffff;        /* Fond cartes */
+
+  /* Textes */
+  --color-text-primary: #111827;   /* Texte principal */
+  --color-text-muted: #6b7280;     /* Texte secondaire gris */
+
+  /* Statuts */
+  --color-status-active: #16a34a;      /* Actif - vert */
+  --color-status-inactive: #ef4444;    /* Désactivé - rouge */
+  --color-status-draft: #f59e0b;       /* Brouillon - jaune */
+
+  /* Bordures */
+  --color-border: #e5e7eb;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* Fond global */
+body {
+  background-color: var(--color-bg-page);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+}
