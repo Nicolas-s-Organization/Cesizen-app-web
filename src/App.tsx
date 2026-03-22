@@ -2,9 +2,12 @@ import { Routes, Route, Navigate } from "react-router"
 
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import Layout from './components/layout/Layout';
 import LoginPage from './pages/Login/LoginPage';
 import DashboardPage from './pages/Dashboard/DashboardPage';
-import Layout from './components/layout/Layout';
+import UsersPage from './pages/Users/UserPage';
+import ArticlesPage from './pages/Articles/ArticlePage';
+import EmotionsPage from './pages/Emotions/EmotionPage';
 
 
 function App() {
@@ -19,15 +22,15 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
-            {/* <Route path="/users" element={<UsersPage />} />
-        <Route path="/users/create" element={<UserCreatePage />} />
-        <Route path="/users/:id/edit" element={<UserEditPage />} />
-        <Route path="/articles" element={<ArticlesPage />} />
-        <Route path="/articles/create" element={<ArticleCreatePage />} />
-        <Route path="/articles/:id/edit" element={<ArticleEditPage />} />
-        <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="/emotions" element={<EmotionsPage />} />
-        <Route path="/emotions/:id" element={<EmotionDetailPage />} /> */}
+            <Route path="/users" element={<UsersPage />} />
+            {/* <Route path="/categories" element={<CategoriesPage />} /> */}
+            <Route path="/articles" element={<ArticlesPage />} />
+            <Route path="/emotions" element={<EmotionsPage />} />
+            {/* <Route path="/users/create" element={<UserCreatePage />} />
+            <Route path="/users/:id/edit" element={<UserEditPage />} />
+            <Route path="/articles/create" element={<ArticleCreatePage />} />
+            <Route path="/articles/:id/edit" element={<ArticleEditPage />} />
+            <Route path="/emotions/:id" element={<EmotionDetailPage />} /> */}
           </Route>
         </Route>
 
