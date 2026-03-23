@@ -1,5 +1,7 @@
 import type { User } from '../../types/auth';
 import { Switch } from '@/components/ui/switch';
+import { Pencil, Trash2 } from 'lucide-react';
+
 
 type Props = {
     users: User[];
@@ -41,7 +43,7 @@ const UsersTable = ({ users, onUpdate, onDelete }: Props) => {
                                         {getInitials(user.firstname, user.lastname)}
                                     </div>
                                     <span className="text-sm font-medium text-[var(--color-text-primary)]">
-                                        {user.lastname}
+                                        {user.firstname} {user.lastname.toUpperCase()}
                                     </span>
                                 </div>
                             </td>
@@ -67,9 +69,9 @@ const UsersTable = ({ users, onUpdate, onDelete }: Props) => {
                                     <Switch
                                         checked={user.isActive}
                                         onCheckedChange={() => onUpdate(user.id, { isActive: !user.isActive })}
-                                        className="data-checked:bg-green-500 data-unchecked:bg-red-400"
+                                        className="data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-gray-300"
                                     />
-                                    <span className={`text-xs font-medium ${user.isActive ? 'text-green-600' : 'text-red-400'}`}>
+                                    <span className={`text-xs font-medium ${user.isActive ? 'text-green-600' : 'text-gray-400'}`}>
                                         {user.isActive ? 'Actif' : 'Inactif'}
                                     </span>
                                 </div>
@@ -83,15 +85,15 @@ const UsersTable = ({ users, onUpdate, onDelete }: Props) => {
 
                             {/* Actions */}
                             <td className="px-6 py-4">
-                                <div className="flex items-center gap-2">
-                                    <button className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors`}>
-                                        {'👤 Modifier'}
+                                <div className="flex items-center gap-1">
+                                    <button className="p-1.5 rounded-lg text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-colors">
+                                        <Pencil size={15} />
                                     </button>
                                     <button
-                                        className="px-3 py-1.5 rounded-lg text-xs font-medium border border-red-300 text-red-500 hover:bg-red-50 transition-colors"
+                                        className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
                                         onClick={() => onDelete(user.id)}
                                     >
-                                        🗑 Supprimer
+                                        <Trash2 size={15} />
                                     </button>
                                 </div>
                             </td>
