@@ -4,7 +4,7 @@ import { useCategory } from '@/hooks/useCategory';
 import { Plus } from 'lucide-react';
 import ArticleFilters from '@/components/articles/ArticleFilters';
 import ArticleTable from '@/components/articles/ArticleTable';
-import Pagination from '@/components/users/Pagination';
+import Pagination from '@/components/common/Pagination';
 
 
 const ArticlesPage = () => {
