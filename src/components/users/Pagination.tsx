@@ -1,8 +1,8 @@
-import type { UserMeta } from '@/types/user';
+import type { PaginationMeta } from '@/types/pagination';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PaginationProps {
-  meta: UserMeta;
+  meta: PaginationMeta;
   onPageChange: (page: number) => void;
   currentPage: number;
 }
