@@ -8,6 +8,7 @@ import DashboardPage from './pages/Dashboard/DashboardPage';
 import UsersPage from './pages/Users/UserPage';
 import ArticlesPage from './pages/Articles/ArticlePage';
 import EmotionsPage from './pages/Emotions/EmotionPage';
+import CreateArticlePage from './pages/Articles/CreateArticlePage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/users" element={<UsersPage />} />
             {/* <Route path="/categories" element={<CategoriesPage />} /> */}
             <Route path="/articles" element={<ArticlesPage />} />
+            <Route path="/articles/create" element={<CreateArticlePage />} />
             <Route path="/emotions" element={<EmotionsPage />} />
             {/* <Route path="/users/create" element={<UserCreatePage />} />
             <Route path="/users/:id/edit" element={<UserEditPage />} />

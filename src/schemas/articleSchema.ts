@@ -1,5 +1,7 @@
+// schemas/articleSchema.ts
 import { z } from "zod";
 
+// Schema de base pour l'API
 export const createArticleSchema = z.object({
   title: z
     .string({ message: "Le titre est requis" })
@@ -34,7 +36,13 @@ export const createArticleSchema = z.object({
 
 export type CreateArticleInput = z.infer<typeof createArticleSchema>;
 
+// Schema pour le formulaire (sans status ni imagePath, gérés séparément)
+export const createArticleFormSchema = createArticleSchema.omit({
+  status: true,
+  imagePath: true,
+});
+
+export type CreateArticleFormInput = z.infer<typeof createArticleFormSchema>;
 
 export const updateArticleSchema = createArticleSchema.partial();
-
 export type UpdateArticleInput = z.infer<typeof updateArticleSchema>;

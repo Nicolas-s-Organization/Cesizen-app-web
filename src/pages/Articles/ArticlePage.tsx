@@ -5,11 +5,15 @@ import { Plus } from 'lucide-react';
 import ArticleFilters from '@/components/articles/ArticleFilters';
 import ArticleTable from '@/components/articles/ArticleTable';
 import Pagination from '@/components/common/Pagination';
+import { useNavigate } from 'react-router';
+
+
 
 
 const ArticlesPage = () => {
   const { articles, meta, loading, error, filters, setFilters, deleteArticle } = useArticles();
   const { categories } = useCategory()
+  const navigate = useNavigate();
 
   if (loading) return <div>Chargement...</div>;
   if (error) return <div>{error}</div>;
@@ -22,6 +26,7 @@ const ArticlesPage = () => {
           <p className="text-sm text-gray-500 mt-1">Créez et gérez les contenus informatifs de la plateforme</p>
         </div>
         <button
+          onClick={() => navigate('/articles/create')}
           className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition"
         >
           <Plus size={18} />
