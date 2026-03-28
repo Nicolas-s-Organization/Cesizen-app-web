@@ -9,6 +9,7 @@ import UsersPage from './pages/Users/UserPage';
 import ArticlesPage from './pages/Articles/ArticlePage';
 import EmotionsPage from './pages/Emotions/EmotionPage';
 import CreateArticlePage from './pages/Articles/CreateArticlePage';
+import EditArticlePage from "./pages/Articles/EditArticlePage";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             {/* <Route path="/categories" element={<CategoriesPage />} /> */}
             <Route path="/articles" element={<ArticlesPage />} />
             <Route path="/articles/create" element={<CreateArticlePage />} />
+            <Route path="/articles/:id/edit" element={<EditArticlePage />} />
             <Route path="/emotions" element={<EmotionsPage />} />
             {/* <Route path="/users/create" element={<UserCreatePage />} />
             <Route path="/users/:id/edit" element={<UserEditPage />} />

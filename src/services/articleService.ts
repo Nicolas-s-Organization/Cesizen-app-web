@@ -20,7 +20,7 @@ export const articleService = {
     },
 
     async update(id: string, data: UpdateArticleInput): Promise<Article> {
-        const response = await api.put(`/articles/${id}`, data);
+        const response = await api.patch(`/articles/${id}`, data);
         return response.data;
     },
 

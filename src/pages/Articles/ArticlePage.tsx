@@ -48,7 +48,7 @@ const ArticlesPage = () => {
         <ArticleTable
           articles={articles}
           onDelete={deleteArticle}
-          onEdit={(article) => console.log('edit', article)}
+          onEdit={(article) => navigate(`/articles/${article.id}/edit`)}
         />
       )}
       {meta && (
