@@ -9,14 +9,8 @@ import EmotionDeleteModal from '@/components/emotions/EmotionDeleteModal';
 
 export default function EmotionsPage() {
   const {
-    emotions,
-    loading,
-    errors,
-    globalError,
-    clearErrors,
-    createEmotion,
-    updateEmotion,
-    deleteEmotion,
+    emotions, loading, errors, globalError,
+    clearErrors, createEmotion, updateEmotion, deleteEmotion,
   } = useEmotions();
 
   const [formModal, setFormModal] = useState<{
@@ -31,6 +25,31 @@ export default function EmotionsPage() {
     emotion: Emotion | null;
   }>({ open: false, emotion: null });
 
+  const closeFormModal = () => {
+    clearErrors();
+    setFormModal({ open: false, mode: 'create', parent: null, emotion: null });
+  };
+
+  const handleFormConfirm = async (name: string) => {
+    let result;
+    if (formModal.mode === 'edit' && formModal.emotion) {
+      result = await updateEmotion(formModal.emotion.id, { name });
+    } else {
+      result = await createEmotion({
+        name,
+        level: formModal.parent ? 2 : 1,
+        parentId: formModal.parent?.id || undefined,
+      });
+    }
+    if (result) closeFormModal();
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteModal.emotion) return;
+    await deleteEmotion(deleteModal.emotion.id);
+    setDeleteModal({ open: false, emotion: null });
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -41,13 +60,10 @@ export default function EmotionsPage() {
 
   return (
     <div className="p-8 space-y-4">
-      {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Configuration des émotions</h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Gérez les émotions disponibles
-          </p>
+          <p className="text-sm text-gray-500 mt-1">Gérez les émotions disponibles</p>
         </div>
         <button
           onClick={() => setFormModal({ open: true, mode: 'create', parent: null, emotion: null })}
@@ -58,7 +74,12 @@ export default function EmotionsPage() {
         </button>
       </div>
 
-      {/* Liste */}
+      {globalError && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+          {globalError}
+        </div>
+      )}
+
       <EmotionList
         emotions={emotions}
         onEdit={(emotion) => setFormModal({ open: true, mode: 'edit', parent: null, emotion })}
@@ -72,37 +93,18 @@ export default function EmotionsPage() {
           parentEmotion={formModal.parent}
           initialName={formModal.emotion?.name || ''}
           errors={errors}
-          onConfirm={async (name) => {
-            let result;
-            if (formModal.mode === 'edit' && formModal.emotion) {
-              result = await updateEmotion(formModal.emotion.id, { name });
-            } else {
-              result = await createEmotion({
-                name,
-                level: formModal.parent ? 2 : 1,
-                parentId: formModal.parent?.id || undefined,
-              });
-            }
-            if (result) setFormModal({ open: false, mode: 'create', parent: null, emotion: null });
-          }}
-          onCancel={() => {
-            clearErrors();
-            setFormModal({ open: false, mode: 'create', parent: null, emotion: null });
-          }}
+          onConfirm={handleFormConfirm}
+          onCancel={closeFormModal}
         />
       )}
 
       {deleteModal.open && deleteModal.emotion && (
         <EmotionDeleteModal
           emotion={deleteModal.emotion}
-          onConfirm={async () => {
-            await deleteEmotion(deleteModal.emotion!.id);
-            setDeleteModal({ open: false, emotion: null });
-          }}
+          onConfirm={handleDeleteConfirm}
           onCancel={() => setDeleteModal({ open: false, emotion: null })}
         />
       )}
-
     </div>
   );
 }
