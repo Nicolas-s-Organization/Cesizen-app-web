@@ -1,3 +1,4 @@
+import { Search } from 'lucide-react';
 import type { UserFilters } from "@/types/user";
 
 
@@ -11,9 +12,7 @@ const UsersFilters = ({ filters, onChange }: Props) => {
         <div className="bg-white rounded-xl border border-[var(--color-border)] px-6 py-4 flex gap-6 items-center mb-8">
             <div className="flex-1">
                 <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]">
-                        🔍
-                    </span>
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-secondary)] w-4 h-4" />
                     <input
                         type="text"
                         placeholder="Rechercher par nom, email..."

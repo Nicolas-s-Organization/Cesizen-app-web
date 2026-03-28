@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useUsers } from '../../hooks/useUser';
 import UsersFilters from '@/components/users/UsersFilters';
 import UsersTable from '../../components/users/UserTable';
-import Pagination from '@/components/users/Pagination';
+import Pagination from '@/components/common/Pagination';
 import CreateUserModal from '@/components/users/CreateUserModal';
 import { Plus } from 'lucide-react';
 
