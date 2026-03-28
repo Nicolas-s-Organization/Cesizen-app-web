@@ -47,14 +47,16 @@ export const useArticles = () => {
         fetchArticles({ ...filters, search: debouncedSearch });
     }, [debouncedSearch, filters.categoryId, filters.status, filters.page]);
 
-    const deleteArticle = async (id: string) => {
-        try {
-            await articleService.delete(id);
-            setArticles(prev => prev.filter(a => a.id !== id));
-        } catch {
-            setError('Erreur lors de la suppression');
-        }
-    };
+    // const deleteArticle = async (id: string) => {
+    //     try {
+    //         await articleService.delete(id);
+    //         setArticles(prev => prev.filter(a => a.id !== id));
+    //     } catch {
+    //         setError('Erreur lors de la suppression');
+    //     }
+    // };
 
-    return { articles, meta, loading, error, filters, setFilters, deleteArticle, fetchArticles };
+    const refetch = () => fetchArticles(filters);
+
+    return { articles, meta, loading, error, filters, setFilters, refetch };
 };
