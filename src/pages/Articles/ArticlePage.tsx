@@ -6,13 +6,16 @@ import ArticleFilters from '@/components/articles/ArticleFilters';
 import ArticleTable from '@/components/articles/ArticleTable';
 import Pagination from '@/components/common/Pagination';
 import { useNavigate } from 'react-router';
+import { useDeleteArticle } from '@/hooks/useDeleteArticle';
+import DeleteArticleModal from '@/components/articles/DeleteArticleModal';
 
 
 
 
 const ArticlesPage = () => {
-  const { articles, meta, loading, error, filters, setFilters, deleteArticle } = useArticles();
   const { categories } = useCategory()
+  const { articles, meta, loading, error, filters, setFilters, refetch } = useArticles();
+  const { articleToDelete, setArticleToDelete, confirmDelete, loading: deleteLoading } = useDeleteArticle(refetch);
   const navigate = useNavigate();
 
   if (loading) return <div>Chargement...</div>;
@@ -47,8 +50,8 @@ const ArticlesPage = () => {
       ) : (
         <ArticleTable
           articles={articles}
-          onDelete={deleteArticle}
           onEdit={(article) => navigate(`/articles/${article.id}/edit`)}
+          onDelete={(article) => setArticleToDelete(article)}
         />
       )}
       {meta && (
@@ -60,6 +63,14 @@ const ArticlesPage = () => {
           />
         </div>
       )}
+
+      <DeleteArticleModal
+        isOpen={!!articleToDelete}
+        articleTitle={articleToDelete?.title ?? ''}
+        loading={deleteLoading}
+        onConfirm={confirmDelete}
+        onClose={() => setArticleToDelete(null)}
+      />
     </div>
   );
 };

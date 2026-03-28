@@ -3,7 +3,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 type Props = {
     articles: Article[];
-    onDelete: (id: string) => Promise<void>;
+    onDelete: (article: Article) => void;
     onEdit?: (article: Article) => void;
 };
 
@@ -72,14 +72,14 @@ const ArticleTable = ({ articles, onDelete, onEdit }: Props) => {
                             <td className="px-6 py-4">
                                 <div className="flex items-center gap-1">
                                     <button
-                                        className="p-1.5 rounded-lg text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-colors" 
+                                        className="p-1.5 rounded-lg text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-colors"
                                         onClick={() => onEdit?.(article)}
                                     >
                                         <Pencil size={15} />
                                     </button>
                                     <button
-                                        className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors" 
-                                        onClick={() => onDelete(article.id)}
+                                        className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+                                        onClick={() => onDelete(article)}
                                     >
                                         <Trash2 size={15} />
                                     </button>
