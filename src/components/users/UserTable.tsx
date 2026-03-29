@@ -7,7 +7,7 @@ type Props = {
     users: User[];
     onUpdate: (id: string, data: Partial<User>) => Promise<void>;
     onEdit: (user: User) => void;
-    onDelete: (id: string) => Promise<void>;
+    onDelete: (user: User) => void;
 };
 
 const getInitials = (firstname: string, lastname: string) => `${firstname[0]}${lastname[0]}`.toUpperCase();
@@ -95,7 +95,7 @@ const UsersTable = ({ users, onEdit, onUpdate, onDelete }: Props) => {
                                     </button>
                                     <button
                                         className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
-                                        onClick={() => onDelete(user.id)}
+                                        onClick={() => onDelete(user)}
                                     >
                                         <Trash2 size={15} />
                                     </button>
