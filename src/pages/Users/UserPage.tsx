@@ -6,10 +6,16 @@ import UsersTable from '../../components/users/UserTable';
 import Pagination from '@/components/common/Pagination';
 import CreateUserModal from '@/components/users/CreateUserModal';
 import { Plus } from 'lucide-react';
+import EditUserModal from '@/components/users/EditUserModal';
+import type { User } from '@/types/auth';
+import { useDeleteUser } from '@/hooks/useDeleteUser';
+import DeleteUserModal from '@/components/users/DeleteUserModal';
 
 const UserPage = () => {
   const { users, meta, loading, error, filters, setFilters, updateUser, deleteUser, fetchUsers } = useUsers();
+  const { userToDelete, setUserToDelete, confirmDelete, loading: deleteLoading } = useDeleteUser(() => fetchUsers(filters));
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
 
   if (loading) return <div>Chargement...</div>;
   if (error) return <div>{error}</div>;
@@ -31,7 +37,12 @@ const UserPage = () => {
         </button>
       </div>
       <UsersFilters filters={filters} onChange={setFilters} />
-      <UsersTable users={users} onUpdate={updateUser} onDelete={deleteUser} />
+      <UsersTable
+        users={users}
+        onUpdate={updateUser}
+        onDelete={(user) => setUserToDelete(user)}
+        onEdit={(user) => setEditingUser(user)}
+      />
       {meta && (
         <div className="flex justify-center pt-2">
           <Pagination
@@ -48,6 +59,22 @@ const UserPage = () => {
           setShowCreateModal(false);
           fetchUsers(filters); // recharge la liste
         }}
+      />
+      <EditUserModal
+        isOpen={!!editingUser}
+        user={editingUser!}
+        onClose={() => setEditingUser(null)}
+        onSuccess={() => {
+          setEditingUser(null);
+          fetchUsers(filters);
+        }}
+      />
+      <DeleteUserModal
+        isOpen={!!userToDelete}
+        userName={userToDelete ? `${userToDelete.firstname} ${userToDelete.lastname}` : ''}
+        loading={deleteLoading}
+        onConfirm={confirmDelete}
+        onClose={() => setUserToDelete(null)}
       />
     </div>
   );
