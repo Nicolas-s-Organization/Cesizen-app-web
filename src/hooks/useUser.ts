@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { userService } from '../services/userService';
 import type { User } from '../types/auth';
-import type { UserFilters, UserMeta } from '@/types/user';
+import type { UserFilters } from '@/types/user';
+import type { PaginationMeta } from '@/types/pagination';
 
 export const useUsers = () => {
     const [users, setUsers] = useState<User[]>([]);
-    const [meta, setMeta] = useState<UserMeta | null>(null);
+    const [meta, setMeta] = useState<PaginationMeta | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [filters, setFiltersState] = useState<UserFilters>({ page: 1, limit: 10 });

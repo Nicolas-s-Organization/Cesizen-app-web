@@ -6,13 +6,14 @@ import { Pencil, Trash2 } from 'lucide-react';
 type Props = {
     users: User[];
     onUpdate: (id: string, data: Partial<User>) => Promise<void>;
+    onEdit: (user: User) => void;
     onDelete: (id: string) => Promise<void>;
 };
 
 const getInitials = (firstname: string, lastname: string) => `${firstname[0]}${lastname[0]}`.toUpperCase();
 
 
-const UsersTable = ({ users, onUpdate, onDelete }: Props) => {
+const UsersTable = ({ users, onEdit, onUpdate, onDelete }: Props) => {
     return (
         <div className="bg-white rounded-xl border border-[var(--color-border)]">
             <div className="px-6 py-4 border-b border-[var(--color-border)]">
@@ -86,7 +87,10 @@ const UsersTable = ({ users, onUpdate, onDelete }: Props) => {
                             {/* Actions */}
                             <td className="px-6 py-4">
                                 <div className="flex items-center gap-1">
-                                    <button className="p-1.5 rounded-lg text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-colors">
+                                    <button
+                                        onClick={() => onEdit(user)}
+                                        className="p-1.5 rounded-lg text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-colors"
+                                    >
                                         <Pencil size={15} />
                                     </button>
                                     <button
