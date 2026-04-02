@@ -1,73 +1,95 @@
-# React + TypeScript + Vite
+# CESIZen — Application Web (Back-office admin)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface d'administration web pour la plateforme CESIZen, permettant la gestion des utilisateurs, articles, catégories et émotions.
 
-Currently, two official plugins are available:
+## Stack technique
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Framework :** React 19
+- **Langage :** TypeScript
+- **Build tool :** Vite 8
+- **Routing :** React Router 7
+- **CSS :** Tailwind CSS 4
+- **Composants UI :** shadcn/ui (Radix UI)
+- **HTTP Client :** Axios
+- **Validation :** Zod
+- **Icônes :** Lucide React
 
-## React Compiler
+## Prérequis
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [Node.js](https://nodejs.org/) v18 ou supérieur
+- npm (inclus avec Node.js)
+- L'API CESIZen doit être lancée et accessible (par défaut `http://localhost:3000`)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Cloner le dépôt
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/Nicolas-s-Organization/Cesizen-app-web.git
+cd Cesizen-app-web/Cesizen-app-web
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Installer les dépendances
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+### 3. Configurer les variables d'environnement
+
+Créer un fichier `.env` à la racine du projet :
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+> Adaptez l'URL si votre API tourne sur un autre port ou domaine.
+
+## Lancement
+
+### Mode développement
+
+```bash
+npm run dev
+```
+
+L'application démarre sur `http://localhost:5173`.
+
+
+
+## Fonctionnalités
+
+- **Authentification :** Connexion admin avec JWT (access + refresh token automatique)
+- **Gestion des utilisateurs :** Liste, création, modification, activation/désactivation, suppression
+- **Gestion des articles :** CRUD complet avec upload d'image, filtres par catégorie et statut
+- **Gestion des émotions :** Arborescence hiérarchique à 2 niveaux (émotions primaires et sous-émotions)
+- **Gestion des catégories :** CRUD des catégories d'articles
+- **Pagination et recherche :** Recherche avec debounce, filtres, pagination sur les listes
+
+## Structure du projet
+
+```
+src/
+├── App.tsx                # Routeur principal
+├── main.tsx               # Point d'entrée
+├── contexts/              # AuthContext (état d'authentification)
+├── services/              # Couche d'appel API (Axios)
+├── hooks/                 # Hooks personnalisés (logique métier séparée de l'affichage)
+├── pages/                 # Pages/écrans de l'application
+├── components/            # Composants réutilisables
+│   ├── articles/          # Composants articles
+│   ├── users/             # Composants utilisateurs
+│   ├── emotions/          # Composants émotions
+│   ├── common/            # Composants partagés (Pagination, Spinner, ProtectedRoute)
+│   └── layout/            # Header, Navbar, Footer
+├── schemas/               # Schémas de validation Zod
+├── types/                 # Interfaces TypeScript
+└── assets/                # Images et ressources statiques
+```
+
+## Architecture
+
+L'application suit une séparation logique/affichage via les **custom hooks** :
+- Les **hooks** (`useUsers`, `useArticles`, etc.) contiennent toute la logique métier, les appels API, la gestion d'état et la validation
+- Les **composants** se concentrent uniquement sur le rendu visuel
+- Les **services** isolent les appels HTTP vers l'API
