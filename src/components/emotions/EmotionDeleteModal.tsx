@@ -22,9 +22,16 @@ export default function EmotionDeleteModal({ emotion, onConfirm, onCancel }: Emo
         </div>
 
         {canDelete ? (
-          <p className="text-gray-700">
-            Voulez-vous vraiment supprimer <strong>« {emotion.name} »</strong> ?
-          </p>
+          <div className="space-y-3">
+            <p className="text-gray-700">
+              Voulez-vous vraiment supprimer <strong>« {emotion.name} »</strong> ?
+            </p>
+            <p className="text-sm text-amber-600 flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 shrink-0" />
+              Les entrées du tracker associées à cette émotion seront également supprimées.
+            </p>
+          </div>
+
         ) : (
           <div className="space-y-3">
             <p className="text-gray-700">

@@ -16,7 +16,7 @@ const Header = () => {
           </div>
 
           <div className="w-px h-10 bg-[var(--color-border)]" />
-          
+
           <div>
             <h1 className="text-[var(--color-primary-text)] font-bold text-lg leading-tight">
               Interface Administrateur
@@ -34,7 +34,7 @@ const Header = () => {
               {user?.firstname || 'Admin CESI'}
             </p>
             <p className="text-[var(--color-text-muted)] text-xs">
-              {user?.role || 'Administrateur'}
+              {user?.role === 'ADMIN' ? 'Administrateur' : user?.role || 'Administrateur'}
             </p>
           </div>
           <button
