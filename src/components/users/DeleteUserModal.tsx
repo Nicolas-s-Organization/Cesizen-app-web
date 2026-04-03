@@ -1,4 +1,4 @@
-import { Trash2, X } from 'lucide-react';
+import { AlertTriangle, Trash2, X } from 'lucide-react';
 
 interface Props {
   userName: string;
@@ -30,6 +30,12 @@ const DeleteUserModal = ({ userName, isOpen, loading, onConfirm, onClose }: Prop
             </p>
             <p className="text-xs text-gray-500 mt-1">Cette action est irréversible.</p>
           </div>
+        </div>
+        <div className="flex items-center gap-2 p-3 bg-amber-50 rounded-lg mb-6">
+          <AlertTriangle size={16} className="text-amber-600 shrink-0" />
+          <p className="text-xs text-amber-700">
+            Les articles associés à cet utilisateur seront également supprimés.
+          </p>
         </div>
 
         <div className="flex justify-end gap-3">

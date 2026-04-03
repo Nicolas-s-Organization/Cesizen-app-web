@@ -5,7 +5,6 @@ import { useLogin } from '../../hooks/useLogin'
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
-  const [rememberMe, setRememberMe] = useState(false)
 
   const { email, setEmail, password, setPassword, errors, globalError, isLoading, handleLogin } = useLogin()
 
@@ -57,7 +56,7 @@ export default function Login() {
           <div>
             <div className="flex justify-between items-center mb-1">
               <label className="text-sm font-medium text-text-primary">Mot de passe</label>
-              <a href="#" className="text-sm font-medium text-primary">Mot de passe oublié ?</a>
+              {/* <a href="#" className="text-sm font-medium text-primary">Mot de passe oublié ?</a> */}
             </div>
             <div className={`flex items-center border rounded-lg px-3 py-2 gap-2 bg-gray-50 ${errors.password ? 'border-red-400' : 'border-border'}`}>
               <Lock size={16} className="text-text-muted" />
@@ -77,23 +76,11 @@ export default function Login() {
             {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
           </div>
 
-          {/* Remember me */}
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="remember"
-              checked={rememberMe}
-              onChange={() => setRememberMe(!rememberMe)}
-              className="w-4 h-4 rounded accent-primary"
-            />
-            <label htmlFor="remember" className="text-sm text-text-primary">Se souvenir de moi</label>
-          </div>
-
           {/* Submit */}
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-lg text-white font-semibold text-sm bg-primary hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full mt-8 flex items-center justify-center gap-2 py-3 rounded-lg text-white font-semibold text-sm bg-primary hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <LogIn size={16} />
             {isLoading ? 'Connexion...' : 'Se connecter'}

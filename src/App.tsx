@@ -4,7 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import Layout from './components/layout/Layout';
 import LoginPage from './pages/Login/LoginPage';
-import DashboardPage from './pages/Dashboard/DashboardPage';
+// import DashboardPage from './pages/Dashboard/DashboardPage';
 import UsersPage from './pages/Users/UserPage';
 import ArticlesPage from './pages/Articles/ArticlePage';
 import EmotionsPage from './pages/Emotions/EmotionPage';
@@ -23,7 +23,7 @@ function App() {
         {/* Protégées */}
         <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
-            <Route path="/dashboard" element={<DashboardPage />} />
+            {/* <Route path="/dashboard" element={<DashboardPage />} /> */}
             <Route path="/users" element={<UsersPage />} />
             {/* <Route path="/categories" element={<CategoriesPage />} /> */}
             <Route path="/articles" element={<ArticlesPage />} />
@@ -39,7 +39,7 @@ function App() {
         </Route>
 
         {/* Fallback */}
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        <Route path="*" element={<Navigate to="/users" replace />} />
       </Routes>
     </AuthProvider >
   )
