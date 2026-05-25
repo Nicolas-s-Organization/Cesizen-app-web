@@ -12,7 +12,7 @@ import { useDeleteUser } from '@/hooks/useDeleteUser';
 import DeleteUserModal from '@/components/users/DeleteUserModal';
 
 const UserPage = () => {
-  const { users, meta, loading, error, filters, setFilters, updateUser, deleteUser, fetchUsers } = useUsers();
+  const { users, meta, loading, error, filters, setFilters, updateUser, fetchUsers } = useUsers();
   const { userToDelete, setUserToDelete, confirmDelete, loading: deleteLoading } = useDeleteUser(() => fetchUsers(filters));
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);

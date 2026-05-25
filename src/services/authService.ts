@@ -16,7 +16,9 @@ export const authService = {
     async logout(): Promise<void> {
         try {
             await api.post('/auth/logout');
-        } catch (_) { }
+        } catch {
+            // échec ignoré : le token est purgé dans le finally
+        }
         finally {
             localStorage.removeItem('accessToken');
         }

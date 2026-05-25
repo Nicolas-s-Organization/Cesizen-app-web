@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { updateUserFormSchema, type UpdateUserFormInput } from '@/schemas/userSchema';
 import { userService } from '@/services/userService';
 import type { User } from '@/types/auth';
+import { getErrorMessage } from '@/lib/getErrorMessage';
 
 interface UseUpdateUserProps {
   user: User | null;
@@ -67,8 +68,8 @@ export function useUpdateUser({ user, onSuccess, onClose }: UseUpdateUserProps) 
       await userService.update(user.id, payload);
       onSuccess();
       onClose();
-    } catch (e: any) {
-      setGlobalError(e?.response?.data?.message || "Erreur lors de la modification");
+    } catch (e) {
+      setGlobalError(getErrorMessage(e, "Erreur lors de la modification"));
     } finally {
       setLoading(false);
     }

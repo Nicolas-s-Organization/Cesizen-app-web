@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { createUserFormSchema, type CreateUserFormInput } from '@/schemas/userSchema';
 import { userService } from '@/services/userService';
+import { getErrorMessage } from '@/lib/getErrorMessage';
 
 interface UseCreateUserProps {
     onSuccess: () => void;
@@ -50,8 +51,8 @@ export function useCreateUser({ onSuccess, onClose }: UseCreateUserProps) {
             await userService.create(result.data);
             onSuccess();
             onClose();
-        } catch (e: any) {
-            setGlobalError(e?.response?.data?.message || "Erreur lors de la création");
+        } catch (e) {
+            setGlobalError(getErrorMessage(e, "Erreur lors de la création"));
         } finally {
             setLoading(false);
         }

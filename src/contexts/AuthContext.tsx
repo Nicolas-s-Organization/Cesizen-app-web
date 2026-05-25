@@ -1,11 +1,9 @@
 // src/contexts/AuthContext.jsx
-import React, { createContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { authService } from "../services/authService";
-import type { User, AuthContextType } from '../types/auth';
+import type { User } from '../types/auth';
 import type { LoginInput } from '../schemas/authSchema';
-
-
-export const AuthContext = createContext<AuthContextType | null>(null);
+import { AuthContext } from './auth-context';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);

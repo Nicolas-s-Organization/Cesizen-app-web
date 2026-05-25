@@ -12,7 +12,7 @@ export const useCategory = () => {
       try {
         const data = await categoryService.getAll()
         setCategories(data)
-      } catch (err) {
+      } catch {
         setError('Erreur lors du chargement des catégories')
       } finally {
         setLoading(false)

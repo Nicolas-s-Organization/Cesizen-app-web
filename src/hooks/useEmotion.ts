@@ -3,6 +3,7 @@ import emotionService from '@/services/emotionService';
 import type { Emotion } from '@/types/emotion';
 import { createEmotionSchema, updateEmotionSchema } from '@/schemas/emotionSchema';
 import type { CreateEmotionInput, UpdateEmotionInput } from '@/schemas/emotionSchema';
+import { getErrorMessage } from '@/lib/getErrorMessage';
 
 export const useEmotions = () => {
   const [emotions, setEmotions] = useState<Emotion[]>([]);
@@ -21,8 +22,8 @@ export const useEmotions = () => {
       setGlobalError('');
       const data = await emotionService.getAll();
       setEmotions(data);
-    } catch (e: any) {
-      setGlobalError(e?.response?.data?.message || 'Erreur lors du chargement des émotions');
+    } catch (e) {
+      setGlobalError(getErrorMessage(e, 'Erreur lors du chargement des émotions'));
     } finally {
       setLoading(false);
     }
@@ -50,8 +51,8 @@ export const useEmotions = () => {
       const newEmotion = await emotionService.create(result.data);
       await fetchEmotions();
       return newEmotion;
-    } catch (e: any) {
-      setGlobalError(e?.response?.data?.message || 'Erreur lors de la création');
+    } catch (e) {
+      setGlobalError(getErrorMessage(e, 'Erreur lors de la création'));
       return null;
     }
   };
@@ -75,8 +76,8 @@ export const useEmotions = () => {
         console.log("updated : " + JSON.stringify(updated))
       await fetchEmotions();
       return updated;
-    } catch (e: any) {
-      setGlobalError(e?.response?.data?.message || 'Erreur lors de la modification');
+    } catch (e) {
+      setGlobalError(getErrorMessage(e, 'Erreur lors de la modification'));
       return null;
     }
   };
@@ -87,8 +88,8 @@ export const useEmotions = () => {
     try {
       await emotionService.delete(id);
       await fetchEmotions();
-    } catch (e: any) {
-      setGlobalError(e?.response?.data?.message || 'Erreur lors de la suppression');
+    } catch (e) {
+      setGlobalError(getErrorMessage(e, 'Erreur lors de la suppression'));
     }
   };
 
