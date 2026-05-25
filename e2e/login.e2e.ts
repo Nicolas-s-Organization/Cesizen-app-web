@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
 import { By, type WebDriver } from 'selenium-webdriver';
-import { createDriver, BASE_URL } from './driver';
+import { createDriver, saveScreenshot, BASE_URL } from './driver';
 
 describe('Page de connexion — validation côté client', () => {
   let driver: WebDriver;
@@ -11,6 +11,12 @@ describe('Page de connexion — validation côté client', () => {
 
   afterAll(async () => {
     await driver?.quit();
+  });
+
+  // Capture l'état final de chaque test (préfixé par pass/fail) -> preuve visuelle
+  afterEach(async (ctx) => {
+    const state = ctx.task.result?.state ?? 'unknown';
+    await saveScreenshot(driver, `${state}-${ctx.task.name}`);
   });
 
   // Scénario A — la validation Zod s'exécute AVANT tout appel API (return anticipé).
