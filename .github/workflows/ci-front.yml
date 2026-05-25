@@ -1,0 +1,54 @@
+name: CI Front
+
+on:
+  push:
+    # branches: [main, develop]
+    branches: [chore/ci-cd-setup]
+  pull_request:
+    # branches: [main, develop]
+    branches: [chore/ci-cd-setup]
+
+jobs:
+  lint:
+    name: Lint (ESLint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+
+  build:
+    name: Build (typecheck + Vite)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+  e2e:
+    name: Tests E2E (Selenium)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Chrome est préinstallé sur les runners ubuntu ; Selenium Manager récupère le driver.
+      - run: npm run e2e
+      - name: Upload des screenshots E2E
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-screenshots
+          path: e2e/screenshots/
+          if-no-files-found: ignore
