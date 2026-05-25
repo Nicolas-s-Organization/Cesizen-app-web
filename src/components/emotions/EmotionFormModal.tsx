@@ -16,6 +16,7 @@ export default function EmotionFormModal({ mode, parentEmotion, initialName = ''
     const level = parentEmotion ? 2 : 1;
     const isEdit = mode === 'edit';
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset volontaire du champ quand initialName change
     useEffect(() => setName(initialName), [initialName]);
 
     const handleSubmit = (e: React.FormEvent) => {

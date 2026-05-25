@@ -5,6 +5,7 @@ import { createArticleFormSchema, type CreateArticleFormInput } from '@/schemas/
 import { articleService } from '@/services/articleService';
 import type { ArticleStatus } from '@/types/article';
 import { useCategory } from './useCategory';
+import { getErrorMessage } from '@/lib/getErrorMessage';
 
 export function useEditArticle() {
     const { id } = useParams<{ id: string }>();
@@ -91,8 +92,8 @@ export function useEditArticle() {
                 await articleService.uploadImage(id, imageFile);
             }
             navigate('/articles');
-        } catch (e: any) {
-            setGlobalError(e?.response?.data?.message || "Erreur lors de la modification");
+        } catch (e) {
+            setGlobalError(getErrorMessage(e, "Erreur lors de la modification"));
         } finally {
             setLoading(false);
         }

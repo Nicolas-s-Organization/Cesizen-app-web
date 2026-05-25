@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useAuth } from './useAuth'
 import { loginSchema} from '../schemas/authSchema'
+import { getErrorMessage } from '@/lib/getErrorMessage'
 
 export function useLogin() {
   const navigate = useNavigate()
@@ -34,8 +35,8 @@ export function useLogin() {
     try {
       await login(result.data)
       navigate('/dashboard')
-    } catch (e: any) {
-      setGlobalError(e?.response?.data?.message || 'Erreur de connexion')
+    } catch (e) {
+      setGlobalError(getErrorMessage(e, 'Erreur de connexion'))
     } finally {
       setIsLoading(false)
     }
