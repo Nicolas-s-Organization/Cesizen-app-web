@@ -2,7 +2,7 @@ name: CI Front
 
 on:
   push:
-    branches: [main, develop, chore/cd-front]
+    branches: [main, develop]
   pull_request:
     branches: [main, develop]
 
@@ -59,10 +59,7 @@ jobs:
     name: Build & push image GHCR
     needs: [lint, build, e2e]
     # Push image sur develop/main OU sur tag git v* (= release prod). Jamais sur les PRs.
-    # (chore/cd-front temporaire pour test — à retirer avant merge)
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/chore/cd-front' || startsWith(github.ref, 'refs/tags/v'))
-    # Version finale (avant merge) — retirer la branche chore/cd-front :
-    # if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
     runs-on: ubuntu-latest
     permissions:
       contents: read
