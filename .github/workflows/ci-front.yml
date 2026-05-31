@@ -2,11 +2,9 @@ name: CI Front
 
 on:
   push:
-    # branches: [main, develop]
-    branches: [chore/ci-cd-setup]
+    branches: [main, develop]
   pull_request:
-    # branches: [main, develop]
-    branches: [chore/ci-cd-setup]
+    branches: [main, develop]
 
 jobs:
   lint:
