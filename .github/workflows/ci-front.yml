@@ -101,5 +101,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          # Bake l'URL de l'API dans le bundle Vite (chemin relatif : la même image
+          # fonctionne pour staging ET prod car axios appelle /api sur le host courant).
+          build-args: |
+            VITE_API_URL=/api
           cache-from: type=gha
           cache-to: type=gha,mode=max
