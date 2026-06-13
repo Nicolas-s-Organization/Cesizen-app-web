@@ -1,0 +1,24 @@
+# Dépendances et artefacts (régénérés dans l'image par npm ci + npm run build)
+node_modules
+dist
+
+# Tests E2E et leurs captures (inutiles à l'image statique)
+e2e
+vitest.e2e.config.ts
+
+# Données / secrets (jamais dans l'image)
+.env
+.env.*
+
+# Versioning et CI (cf. retour promos : pas de .git dans l'image)
+.git
+.github
+
+# Outils dev / IDE
+*.log
+.vscode
+
+# Docker lui-même et docs
+Dockerfile
+.dockerignore
+README.md

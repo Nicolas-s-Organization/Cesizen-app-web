@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+# Captures générées par les tests E2E
+e2e/screenshots/
