@@ -20,7 +20,7 @@ export default function Login() {
 
         {/* Title */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl mb-2 font-bold text-text-primary">Interface Administrateur</h1>
+          <h1 className="text-2xl mb-2 font-bold text-text-primary">Interface Administrateurrr</h1>
           <p className="text-sm mt-1 mb-8 text-text-muted">Connectez-vous pour gérer la plateforme CESI Zen</p>
         </div>
 
